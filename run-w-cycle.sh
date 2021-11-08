@@ -1,11 +1,12 @@
 GRAPH=$1
 CYCLE=$2
+SOLVE=~/cadical/build/cadical
 TIMEOUT=3600
 
 set -x
 
 rm sol.log
-./hcp-encode $GRAPH $CYCLE | timeout $TIMEOUT ~/cadical/build/cadical -w sol.log | grep "c total process"
+./hcp-encode $GRAPH $CYCLE | timeout $TIMEOUT $SOLVE -w sol.log | grep "c total process"
 head -n 1 $GRAPH
 cat sol.log | grep "SATISFIABLE"
 cat sol.log | grep "s SATISFIABLE" > result
