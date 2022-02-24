@@ -16,8 +16,6 @@ one with 1 + x^1 + x^2 and one with 1 + x^2 + x^3.
 #include <stdio.h>
 #include <stdlib.h>
 
-#define CYCLE	56
-
 int nNode, nEdge, nBits;
 int maxVar;
 
@@ -58,10 +56,15 @@ void atmostone (int* array, int size) {
 int main (int argc, char** argv) {
   int b, i, j, k, l;
 
-  int cycle = CYCLE;
+  int cycle = 2;
 
   FILE* graph = fopen (argv[1], "r");
   int tmp = fscanf (graph, " p edge %i %i ", &nNode, &nEdge);
+
+  if (cycle <= nNode) cycle *= 3;
+  if (cycle <= nNode) cycle *= 5;
+  if (cycle <= nNode) cycle *= 7;
+  while (cycle <= nNode) cycle *= 2;
 
   if (argc > 2) cycle = atoi (argv[2]);
 
